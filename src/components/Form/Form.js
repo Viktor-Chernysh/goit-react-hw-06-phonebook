@@ -1,24 +1,26 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import s from './Form.module.css';
+import * as actions from '../../redux/contacts/actions';
 
 const nameInputId = uuidv4();
 const numberInputId = uuidv4();
 
-export default function Form({ AddNewContact }) {
+function Form({ onAddContact }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const handleSubmit = e => {
     e.preventDefault();
     const contactObject = {
       id: uuidv4(),
-      name: name,
-      number: number,
+      name,
+      number,
     };
-    AddNewContact(contactObject);
     resetForm();
+    onAddContact(contactObject);
   };
 
   function handleChange(e) {
@@ -72,5 +74,13 @@ export default function Form({ AddNewContact }) {
   );
 }
 Form.propTypes = {
-  AddNewContact: PropTypes.func.isRequired,
+  onAddContact: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddContact: value => dispatch(actions.addNewContact(value)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Form);
