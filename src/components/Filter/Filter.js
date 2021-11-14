@@ -5,21 +5,18 @@ import s from './Filter.module.css';
 import { addFilter } from '../../redux/contacts/contact-actions';
 
 function Filter({ onAddFilter }) {
-  const inputId = uuidv4();
-  const addFilter = e => {
-    onAddFilter(e.target.value.trim());
-  };
+  // const inputId = uuidv4();
   return (
     <label className={s.filter}>
       <div>Find contact by name</div>
-      <input type="text" id={inputId} name="filter" onChange={addFilter} />
+      <input type="text" id={uuidv4()} name="filter" onChange={onAddFilter} />
     </label>
   );
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddFilter: value => dispatch(addFilter(value)),
+    onAddFilter: e => dispatch(addFilter(e.target.value)),
   };
 };
 export default connect(null, mapDispatchToProps)(Filter);

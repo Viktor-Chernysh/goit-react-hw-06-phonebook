@@ -19,8 +19,8 @@ function Form({ onAddContact }) {
       name,
       number,
     };
-    resetForm();
     onAddContact(contactObject);
+    resetForm();
   };
 
   function handleChange(e) {
@@ -73,9 +73,9 @@ function Form({ onAddContact }) {
     </form>
   );
 }
-Form.propTypes = {
-  onAddContact: PropTypes.func.isRequired,
-};
+// Form.propTypes = {
+//   onAddContact: PropTypes.func.isRequired,
+// };
 
 const mapDispatchToProps = dispatch => {
   return {

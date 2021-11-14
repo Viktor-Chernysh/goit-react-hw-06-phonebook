@@ -1,20 +1,13 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import s from './Contacts.module.css';
 import { deleteContact } from '../../redux/contacts/contact-actions';
-function Contacts({ contacts, filter, onDelete }) {
-  const filteredContacts = () => {
-    if (filter === '') {
-      return contacts;
-    }
-    return contacts.filter(el =>
-      el.name.toLowerCase().includes(filter.toLowerCase()),
-    );
-  };
 
+function Contacts({ contacts, onDelete }) {
   return (
     <ol className={s.contact_list}>
-      {filteredContacts().map(({ id, name, number }) => (
+      {contacts.map(({ id, name, number }) => (
         <li className={s.contact_item} key={id}>
           {name}:<span>{number}</span>{' '}
           <button
@@ -30,13 +23,22 @@ function Contacts({ contacts, filter, onDelete }) {
     </ol>
   );
 }
-Contacts.propTypes = {
-  contacts: PropTypes.array,
-  deleteContact: PropTypes.func,
+// Contacts.propTypes = {
+//   contacts: PropTypes.array,
+//   deleteContact: PropTypes.func,
+// };
+const filteredContacts = (filter, allContacts) => {
+  const normalizeFilter = filter.toLowerCase();
+  if (filter === '') {
+    return allContacts;
+  }
+  return allContacts.filter(el =>
+    el.name.toLowerCase().includes(normalizeFilter),
+  );
 };
 const mapStateToProps = state => {
   return {
-    contacts: state.contacts.items,
+    contacts: filteredContacts(state.contacts.filter, state.contacts.items),
     filter: state.contacts.filter,
   };
 };
