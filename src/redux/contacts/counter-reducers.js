@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+import * as counterTypes from './counter-types';
+
 const initContacts = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
   { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
@@ -9,7 +11,7 @@ const initContacts = [
 
 const itemsReducer = (state = initContacts, { type, payload }) => {
   switch (type) {
-    case 'contact/getContact':
+    case counterTypes.GET_CONTACT:
       const addedName = state
         .map(el => el.name.toLowerCase())
         .includes(payload.name.toLowerCase());
@@ -20,7 +22,7 @@ const itemsReducer = (state = initContacts, { type, payload }) => {
       }
       return [...state, payload];
 
-    case 'contact/deleteContact':
+    case counterTypes.DELETE_CONTACT:
       return state.filter(el => el.id !== payload);
 
     default:
@@ -30,17 +32,13 @@ const itemsReducer = (state = initContacts, { type, payload }) => {
 
 const filterReducer = (state = '', { type, payload }) => {
   switch (type) {
-    case 'contact/getFilter':
+    case counterTypes.GET_FILTER:
       return payload;
     default:
       return state;
   }
 };
-const contactReducer = combineReducers({
+export const contactReducer = combineReducers({
   items: itemsReducer,
   filter: filterReducer,
-});
-
-export const rootReducer = combineReducers({
-  contacts: contactReducer,
 });

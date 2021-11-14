@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import s from './Contacts.module.css';
-import { deleteContact } from '../../redux/contacts/actions';
+import { deleteContact } from '../../redux/contacts/contact-actions';
 function Contacts({ contacts, filter, onDelete }) {
   const filteredContacts = () => {
     if (filter === '') {

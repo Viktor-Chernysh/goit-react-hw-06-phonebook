@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
 
 import s from './Filter.module.css';
-import { addFilter } from '../../redux/contacts/actions';
+import { addFilter } from '../../redux/contacts/contact-actions';
 
 function Filter({ onAddFilter }) {
   const inputId = uuidv4();

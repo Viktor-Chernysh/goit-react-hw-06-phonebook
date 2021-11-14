@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import s from './Form.module.css';
-import * as actions from '../../redux/contacts/actions';
+import * as actions from '../../redux/contacts/contact-actions';
 
 const nameInputId = uuidv4();
 const numberInputId = uuidv4();
